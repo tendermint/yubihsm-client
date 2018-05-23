@@ -184,3 +184,71 @@ pub struct SignDataEdDSAResponse {
 impl Response for SignDataEdDSAResponse {
     const COMMAND_TYPE: CommandType = CommandType::SignDataEdDSA;
 }
+
+/// Response from `CommandType::PutAsymmetricKey`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PutAsymmetricResponse {
+    /// ID of the key
+    pub key_id: ObjectId,
+}
+
+impl Response for PutAsymmetricResponse {
+    const COMMAND_TYPE: CommandType = CommandType::PutAsymmetricKey;
+}
+
+// Need to reconsider design
+/// Response from `CommandType::WrapData`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct WrapDataResponse {
+    /// data wrapped in raw bytes
+    /// The data is encoded into following format:
+    /// Nouce (13 bytes) ||  Wrapped Data || MAC (16 bytes)
+    pub data: Vec<u8>,
+}
+
+impl Response for WrapDataResponse {
+    const COMMAND_TYPE: CommandType = CommandType::WrapData;
+}
+
+/// Response from `CommandType::PutWrapKey`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PutWrapKeyResponse {
+    /// ID of wrapping key put in
+    pub key_id: ObjectId,
+}
+
+impl Response for PutWrapKeyResponse {
+    const COMMAND_TYPE: CommandType = CommandType::PutWrapKey;
+}
+
+/// Response from `CommandType::UnwrapData`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct UnwrapDataResponse {
+    /// Unwrapped data
+    pub data: Vec<u8>,
+}
+
+impl Response for UnwrapDataResponse {
+    const COMMAND_TYPE: CommandType = CommandType::UnwrapData;
+}
+
+/// Response from `CommandType::SignDataECDSA`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct SignDataECDSAResponse {
+    /// ECDSA signature (variable length depends on Algorithm)
+    pub signature: Vec<u8>,
+}
+
+impl Response for SignDataECDSAResponse {
+    const COMMAND_TYPE: CommandType = CommandType::SignDataECDSA;
+}
+
+/// Response from `CommandType::GenerateWrapKey`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct GenerateWrapKeyResponse {
+    pub key_id: ObjectId,
+}
+
+impl Response for GenerateWrapKeyResponse {
+    const COMMAND_TYPE: CommandType = CommandType::GenerateWrapKey;
+}

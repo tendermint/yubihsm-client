@@ -161,3 +161,106 @@ pub struct SignDataEdDSACommand {
 impl Command for SignDataEdDSACommand {
     type ResponseType = SignDataEdDSAResponse;
 }
+
+/// Request parameters for `CommandType::PutAsymmetricKey`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Put_Asymmetric.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PutAsymmetricCommand {
+    /// ID of the key
+    pub key_id: ObjectId,
+
+    /// Label of the key (40 bytes)
+    pub label: ObjectLabel,
+
+    /// Avaliable domains of the key.
+    pub domains: Domains,
+
+    /// Capabilities of the key.
+    pub capabilities: Capabilities,
+
+    /// Key algorithm
+    pub algorithm: Algorithm,
+
+    /// The actual private key.
+    pub data: Vec<u8>,
+}
+
+impl Command for PutAsymmetricCommand {
+    type ResponseType = PutAsymmetricResponse;
+}
+
+/// Request parameters for `CommandType::WrapData`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Wrap_Data.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct WrapDataCommand {
+    pub key_id: ObjectId,
+    pub data: Vec<u8>,
+}
+
+impl Command for WrapDataCommand {
+    type ResponseType = WrapDataResponse;
+}
+
+/// Request parameters for `CommandType::PutWrapKey`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Put_Wrap_Key.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PutWrapKeyCommand {
+    pub key_id: ObjectId,
+    pub label: ObjectLabel,
+    pub domains: Domains,
+    pub capabilities: Capabilities,
+    pub algorithm: Algorithm,
+    pub dc: Capabilities,
+    pub wrapkey: Vec<u8>,
+}
+
+impl Command for PutWrapKeyCommand {
+    type ResponseType = PutWrapKeyResponse;
+}
+
+// Multiple paramater again.. deserialize might be an issue
+/// Request parameters for `CommandType::UnwrapData`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Unwrap_Data.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct UnwrapDataCommand {
+    pub key_id: ObjectId,
+    pub data: Vec<u8>,
+}
+
+impl Command for UnwrapDataCommand {
+    type ResponseType = UnwrapDataResponse;
+}
+
+/// Request parameters for `CommandType::SignDataECDSA`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Sign_Data_Ecdsa.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct SignDataECDSACommand {
+    pub key_id: ObjectId,
+    pub data: Vec<u8>,
+}
+
+impl Command for SignDataECDSACommand {
+    type ResponseType = SignDataECDSAResponse;
+}
+
+/// Request parameters for `CommandType::GenerateWrapKey`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Generate_Wrap_Key.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct GenerateWrapKeyCommand {
+    pub key_id: ObjectId,
+    pub label: ObjectLabel,
+    pub domains: Domains,
+    pub capabilities: Capabilities,
+    pub algorithm: Algorithm,
+    pub dc: Capabilities,
+}
+
+impl Command for GenerateWrapKeyCommand {
+    type ResponseType = GenerateWrapKeyResponse;
+}

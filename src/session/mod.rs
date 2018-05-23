@@ -247,6 +247,122 @@ impl<C: Connector> Session<C> {
         })
     }
 
+    // Parser is require to break pem files to algorithm and data
+    // how to implement data1 data2?
+    // is RSA needed?
+    // hold
+    /// Put an Asymmetric Key into the device
+    /// Required to put a 
+    pub fn put_asymmetric<T>(
+        &mut self,
+        key_id: ObjectId,
+        label: ObjectLabel,
+        domains: Domains,
+        capabilities: Capabilities,
+        algorithm: Algorithm,
+        data: T,
+    ) -> Result<PutAsymmetricResponse, SessionError>
+    where T: Into<Vec<u8>>,
+    {
+        self.send_encrypted_command(PutAsymmetricCommand {
+            key_id,
+            label,
+            domains,
+            capabilities,
+            algorithm,
+            data: data.into(),
+        })
+    }
+
+    /// Import a wrapkey.
+    pub fn put_wrap_key<T>(
+        &mut self,
+        key_id : ObjectId,
+        label: ObjectLabel,
+        domains: Domains,
+        capabilities: Capabilities,
+        algorithm: Algorithm,
+        dc: Capabilities,
+        wrapkey: T,
+    ) -> Result<PutWrapKeyResponse, SessionError>
+    where T: Into<Vec<u8>>,
+    {
+        self.send_encrypted_command(PutWrapKeyCommand {
+            key_id,
+            label,
+            domains,
+            capabilities,
+            algorithm,
+            dc,
+            wrapkey: wrapkey.into(),
+        })
+    }
+
+    /// Encrypt (wrap) data using a wrapkey.
+    pub fn wrap_data<T>(
+        &mut self,
+        key_id: ObjectId,
+        data: T,
+    ) -> Result<WrapDataResponse, SessionError>
+    where T: Into<Vec<u8>>,
+    {
+        self.send_encrypted_command(WrapDataCommand {
+            key_id,
+            data: data.into(),
+        })
+    }
+
+
+    /// Decrypt (unwrap) data using a wrapkey.
+    pub fn unwrap_data<T>(
+        &mut self,
+        key_id: ObjectId,
+        data: T,
+    ) -> Result<UnwrapDataResponse, SessionError>
+    where T: Into<Vec<u8>>,
+    {
+        self.send_encrypted_command(UnwrapDataCommand {
+            key_id,
+            data: data.into(),
+        })
+    }
+
+    /// Compute a ECDSA signature of the specified key
+    pub fn sign_data_ecdsa<T>(
+        &mut self,
+        key_id: ObjectId,
+        data: T,
+    ) -> Result<SignDataECDSAResponse, SessionError>
+    where
+        T: Into<Vec<u8>>,
+    {
+        self.send_encrypted_command(SignDataECDSACommand {
+            key_id,
+            data: data.into(),
+        })
+    }
+
+    /// Generate wrapkey
+    pub fn generate_wrap_key(
+        &mut self,
+        key_id: ObjectId,
+        label: ObjectLabel,
+        domains: Domains,
+        capabilities: Capabilities,
+        algorithm: Algorithm,
+        dc: Capabilities,
+    ) -> Result<GenerateWrapKeyResponse, SessionError>
+    {
+        self.send_encrypted_command(GenerateWrapKeyCommand {
+            key_id,
+            label,
+            domains,
+            capabilities,
+            algorithm,
+            dc,
+        })
+    }
+
     /// Authenticate the current session with the `YubiHSM2`
     fn authenticate(&mut self) -> Result<(), SessionError> {
         let command = self.channel.authenticate_session()?;
