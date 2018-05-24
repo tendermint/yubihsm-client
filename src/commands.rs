@@ -264,3 +264,18 @@ pub struct GenerateWrapKeyCommand {
 impl Command for GenerateWrapKeyCommand {
     type ResponseType = GenerateWrapKeyResponse;
 }
+
+/// Request parameters for `CommandType::AttestAsymmetric`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Attest_Asymmetric.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct AttestAsymmetricCommand {
+    /// Key ID to be attested
+    pub key_id: ObjectId,
+    /// Attestation key ID
+    pub attest_key_id: ObjectId,
+}
+
+impl Command for AttestAsymmetricCommand {
+    type ResponseType = AttestAsymmetricResponse;
+}

@@ -173,3 +173,54 @@ hardware, such as CI environments.
 the Apache License (Version 2.0).
 
 See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
+
+
+## Command supported and TODO
+
+- [?] Attest Asymmetric
+- [X] Authenticate Session
+- [X] Blink
+- [?] Close Session
+- [X] Create Session
+- [ ] Decrypt Ecdh
+- [ ] Decrypt Oaep
+- [ ] Decrypt Pkcs1
+- [X] Delete Object
+- [ ] Device Info
+- [X] Echo
+- [ ] Export Wrapped
+- [X] Generate Asymmetric Key
+- [ ] Generate Hmac Key
+- [ ] Generate Otp Aead Key
+- [X] Generate Wrap Key
+- [ ] Get Logs
+- [X] Get Object Info
+- [ ] Get Opaque
+- [ ] Get Option
+- [ ] Get Pseudo Random
+- [X] Get Pubkey
+- [ ] Hmac Data
+- [ ] Import Wrapped
+- [X] List Objects
+- [ ] Otp Aead Create
+- [ ] Otp Aead Random
+- [ ] Otp Aead Rewrap
+- [ ] Otp Decrypt
+- [?] Put Asymmetric
+- [ ] Put Authkey
+- [ ] Put Hmac Key
+- [ ] Put Opaque
+- [ ] Put Option
+- [ ] Put Otp Aead Key
+- [?] Put Wrap Key
+- [ ] Reset
+- [ ] Session Message
+- [ ] Set Log Index
+- [?] Sign Data Ecdsa
+- [X] Sign Data Eddsa
+- [ ] Sign Data Pkcs1
+- [ ] Sign Data Pss
+- [ ] Storage Status
+- [?] Unwrap Data
+- [ ] Verify Hmac
+- [?] Wrap Data

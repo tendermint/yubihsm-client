@@ -363,6 +363,19 @@ impl<C: Connector> Session<C> {
         })
     }
 
+    /// Attest an Asymmetric key.
+    pub fn attest_asymmetric(
+        &mut self,
+        key_id: ObjectId,
+        attest_key_id: ObjectId,
+    ) -> Result<AttestAsymmetricResponse, SessionError>
+    {
+        self.send_encrypted_command(AttestAsymmetricCommand {
+            key_id,
+            attest_key_id,
+        })
+    }
+
     /// Authenticate the current session with the `YubiHSM2`
     fn authenticate(&mut self) -> Result<(), SessionError> {
         let command = self.channel.authenticate_session()?;

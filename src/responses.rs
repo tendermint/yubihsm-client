@@ -246,9 +246,21 @@ impl Response for SignDataECDSAResponse {
 /// Response from `CommandType::GenerateWrapKey`
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GenerateWrapKeyResponse {
+    /// ID of the key to be generated
     pub key_id: ObjectId,
 }
 
 impl Response for GenerateWrapKeyResponse {
     const COMMAND_TYPE: CommandType = CommandType::GenerateWrapKey;
+}
+
+/// Response from `CommandType::AttestAsymmetric`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct AttestAsymmetricResponse {
+    /// DER encoded X.509 attestation
+    pub attestation: Vec<u8>,
+}
+
+impl Response for AttestAsymmetricResponse {
+    const COMMAND_TYPE: CommandType = CommandType::AttestAsymmetric;
 }
