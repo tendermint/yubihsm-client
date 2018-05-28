@@ -221,9 +221,9 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 - [ ] Sign Data Pkcs1
 - [ ] Sign Data Pss
 - [ ] Storage Status
-- [?] Unwrap Data
+- [X] Unwrap Data
 - [ ] Verify Hmac
-- [?] Wrap Data
+- [X] Wrap Data
 
 ## Known issue
 
