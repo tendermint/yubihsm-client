@@ -177,7 +177,7 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 
 ## Command supported and TODO
 
-- [?] Attest Asymmetric
+- [X] Attest Asymmetric
 - [X] Authenticate Session
 - [X] Blink
 - [?] Close Session
@@ -224,3 +224,9 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 - [?] Unwrap Data
 - [ ] Verify Hmac
 - [?] Wrap Data
+
+## Known issue
+
+- Generate Asymmetric Key fails when delay is too high (e.g. Generating RSA4096 and sometimes 2048).
+
+- Cannot Attest EDDSA (ED25519). This is an issue with YubiHSM hardware where this operation.
