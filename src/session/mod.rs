@@ -376,6 +376,21 @@ impl<C: Connector> Session<C> {
         })
     }
 
+    /// Get an object in encrypted form (wrapped)
+    pub fn export_wrapped(
+        &mut self,
+        wrapkey_id: ObjectId,
+        object_type: ObjectType,
+        object_id: ObjectId,
+    ) -> Result<ExportWrappedResponse, SessionError>
+    {
+        self.send_encrypted_command(ExportWrappedCommand {
+            wrapkey_id,
+            object_type,
+            object_id,
+        })
+    }
+
     /// Authenticate the current session with the `YubiHSM2`
     fn authenticate(&mut self) -> Result<(), SessionError> {
         let command = self.channel.authenticate_session()?;

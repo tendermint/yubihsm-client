@@ -188,7 +188,7 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 - [X] Delete Object
 - [ ] Device Info
 - [X] Echo
-- [ ] Export Wrapped
+- [?] Export Wrapped
 - [X] Generate Asymmetric Key
 - [ ] Generate Hmac Key
 - [ ] Generate Otp Aead Key
@@ -213,8 +213,8 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 - [ ] Put Option
 - [ ] Put Otp Aead Key
 - [?] Put Wrap Key
-- [ ] Reset
-- [ ] Session Message
+- [ ] Reset (May not impl)
+- [?] Session Message
 - [ ] Set Log Index
 - [?] Sign Data Ecdsa
 - [X] Sign Data Eddsa

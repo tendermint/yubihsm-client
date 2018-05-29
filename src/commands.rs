@@ -279,3 +279,20 @@ pub struct AttestAsymmetricCommand {
 impl Command for AttestAsymmetricCommand {
     type ResponseType = AttestAsymmetricResponse;
 }
+
+/// Request parameters for `CommandType::ExportWrapped`
+/// 
+/// <https://developers.yubico.com/YubiHSM2/Commands/Export_Wrapped.html>
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ExportWrappedCommand {
+    /// ID of wrapkey
+    pub wrapkey_id: ObjectId,
+    /// Type of object to wrap
+    pub object_type: ObjectType,
+    /// ID of object to wrap
+    pub object_id: ObjectId,
+}
+
+impl Command for ExportWrappedCommand {
+    type ResponseType = ExportWrappedResponse;
+}

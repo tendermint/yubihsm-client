@@ -264,3 +264,14 @@ pub struct AttestAsymmetricResponse {
 impl Response for AttestAsymmetricResponse {
     const COMMAND_TYPE: CommandType = CommandType::AttestAsymmetric;
 }
+
+/// Response from `CommandType::ExportWrapped`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ExportWrappedResponse {
+    /// Nonce with wrapped data
+    pub data: Vec<u8>,
+}
+
+impl Response for ExportWrappedResponse {
+    const COMMAND_TYPE: CommandType = CommandType::ExportWrapped;
+}
