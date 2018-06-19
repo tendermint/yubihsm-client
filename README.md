@@ -186,7 +186,7 @@ See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for details.
 - [ ] Decrypt Oaep
 - [ ] Decrypt Pkcs1
 - [X] Delete Object
-- [ ] Device Info
+- [X] Device Info (through connector)
 - [X] Echo
 - [?] Export Wrapped
 - [X] Generate Asymmetric Key
