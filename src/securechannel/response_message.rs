@@ -1,13 +1,18 @@
 //! Responses sent back from the YubiHSM2
 
-use byteorder::{BigEndian, ByteOrder};
 #[cfg(feature = "mockhsm")]
 use byteorder::WriteBytesExt;
-use super::{CommandType, Mac, SecureChannelError, SessionId, MAC_SIZE};
+use byteorder::{BigEndian, ByteOrder};
+use serde::de::{self, Deserialize, Deserializer, Visitor};
+use serde::ser::{Serialize, Serializer};
+use std::fmt;
+
+use super::{Mac, SecureChannelError, SessionId, MAC_SIZE};
+use commands::CommandType;
 
 /// Command responses
-#[derive(Debug, Eq, PartialEq)]
-pub struct ResponseMessage {
+#[derive(Debug)]
+pub(crate) struct ResponseMessage {
     /// Success (for a given command type) or an error type
     pub code: ResponseCode,
 
@@ -227,7 +232,9 @@ impl ResponseCode {
         let code = (i16::from(byte) - 0x80) as i8;
 
         if code >= 0 {
-            let command_type = CommandType::from_u8(code as u8)?;
+            let command_type = CommandType::from_u8(code as u8)
+                .map_err(|e| secure_channel_err!(ProtocolError, "{}", e))?;
+
             return Ok(ResponseCode::Success(command_type));
         }
 
@@ -266,8 +273,8 @@ impl ResponseCode {
     }
 
     /// Convert a ResponseCode back into its original byte form
-    pub fn to_u8(&self) -> u8 {
-        let code: i8 = match *self {
+    pub fn to_u8(self) -> u8 {
+        let code: i8 = match self {
             ResponseCode::Success(cmd_type) => cmd_type as i8,
             ResponseCode::MemoryError => -1,
             ResponseCode::InitError => -2,
@@ -304,8 +311,8 @@ impl ResponseCode {
     }
 
     /// Does this response include a session ID?
-    pub fn has_session_id(&self) -> bool {
-        match *self {
+    pub fn has_session_id(self) -> bool {
+        match self {
             ResponseCode::Success(cmd_type) => match cmd_type {
                 CommandType::CreateSession | CommandType::SessionMessage => true,
                 _ => false,
@@ -314,14 +321,51 @@ impl ResponseCode {
         }
     }
 
-    /// Does this response have a Response-MAC (C-MAC) value on the end?
-    pub fn has_rmac(&self) -> bool {
-        match *self {
+    /// Does this response have a Response-MAC (R-MAC) value on the end?
+    pub fn has_rmac(self) -> bool {
+        match self {
             ResponseCode::Success(cmd_type) => match cmd_type {
                 CommandType::SessionMessage => true,
                 _ => false,
             },
             _ => false,
         }
+    }
+}
+
+impl Serialize for ResponseCode {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_u8(self.to_u8())
+    }
+}
+
+impl<'de> Deserialize<'de> for ResponseCode {
+    fn deserialize<D>(deserializer: D) -> Result<ResponseCode, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        struct ResponseCodeVisitor;
+
+        impl<'de> Visitor<'de> for ResponseCodeVisitor {
+            type Value = ResponseCode;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("an unsigned byte between 0x01 and 0x07")
+            }
+
+            fn visit_u8<E>(self, value: u8) -> Result<ResponseCode, E>
+            where
+                E: de::Error,
+            {
+                ResponseCode::from_u8(value)
+                    .or_else(|_| ResponseCode::from_u8(ResponseCode::DeviceOK.to_u8() - value))
+                    .or_else(|e| Err(E::custom(format!("{}", e))))
+            }
+        }
+
+        deserializer.deserialize_u8(ResponseCodeVisitor)
     }
 }

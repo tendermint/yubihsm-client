@@ -2,14 +2,17 @@ use std::fmt;
 use std::sync::{Arc, Mutex};
 use uuid::Uuid;
 
+mod commands;
 mod objects;
+mod session;
 mod state;
 
-use connector::{Connector, ConnectorError, Status};
-use securechannel::{CommandMessage, CommandType};
-use session::{PBKDF2_ITERATIONS, PBKDF2_SALT, Session, SessionError};
-use super::{ObjectId, StaticKeys};
 use self::state::State;
+use super::{ObjectId, StaticKeys};
+use commands::CommandType;
+use connector::{Connector, ConnectorError, Status};
+use securechannel::CommandMessage;
+use session::{PBKDF2_ITERATIONS, PBKDF2_SALT, Session, SessionError};
 
 /// Software simulation of a `YubiHSM2` intended for testing
 /// implemented as a `yubihsm::Connector` (skipping HTTP transport)
@@ -80,9 +83,9 @@ impl Connector for MockHSM {
         let mut state = self.state.lock().unwrap();
 
         match command.command_type {
-            CommandType::CreateSession => state.create_session(&command),
-            CommandType::AuthSession => state.authenticate_session(&command),
-            CommandType::SessionMessage => state.session_message(command),
+            CommandType::CreateSession => commands::create_session(&mut state, &command),
+            CommandType::AuthSession => commands::authenticate_session(&mut state, &command),
+            CommandType::SessionMessage => commands::session_message(&mut state, command),
             unsupported => panic!("unsupported command type: {:?}", unsupported),
         }
     }
