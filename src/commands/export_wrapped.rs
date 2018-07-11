@@ -1,3 +1,7 @@
+//! Export an wrapped object
+//!
+//! <https://developers.yubico.com/YubiHSM2/Commands/Export_Wrapped.html>
+
 /*
     /// Get an object in encrypted form (wrapped)
     pub fn export_wrapped(

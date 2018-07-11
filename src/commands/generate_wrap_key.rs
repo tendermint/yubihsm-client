@@ -1,3 +1,7 @@
+//! Generate Wrapkey for wrapping objects
+//!
+//! <https://developers.yubico.com/YubiHSM2/Commands/Generate_Wrap_Key.html>
+
 /*
 
     /// Generate wrapkey
