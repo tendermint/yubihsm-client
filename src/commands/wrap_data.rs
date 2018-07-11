@@ -19,7 +19,7 @@ pub fn wrap_data<C: Connector, T: Into<Vec<u8>>>(
     session.send_encrypted_command(WrapDataCommand {
         key_id,
         data,
-    }))
+    })
 }
 
 /// Request parameters for `commands::wrap_data`
@@ -39,8 +39,9 @@ impl Command for WrapDataCommand {
 /// Wrapped data
 #[derive(Serialize, Deserialize, Debug)]
 pub struct WrapDataResponse{
-    pub wrapped_data: Vec<u8>
-);
+    /// Wrapped Data by wrapkey
+    pub wrapped_data: Vec<u8>,
+}
 
 impl Response for WrapDataResponse {
     const COMMAND_TYPE: CommandType = CommandType::WrapData;
