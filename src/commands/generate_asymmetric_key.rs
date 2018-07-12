@@ -49,7 +49,7 @@ impl Command for GenAsymmetricKeyCommand {
     type ResponseType = GenAsymmetricKeyResponse;
 }
 
-/// Response from `commands::generate_assymetric_key`
+/// Response from `commands::generate_asymetric_key`
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GenAsymmetricKeyResponse {
     /// ID of the key
