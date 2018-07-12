@@ -60,5 +60,3 @@ pub struct PutWrapKeyResponse {
 impl Response for PutWrapKeyResponse {
     const COMMAND_TYPE: CommandType = CommandType::PutWrapKey;
 }
-
-// DC not added
