@@ -41,7 +41,9 @@ pub(crate) mod create_session;
 pub mod delete_object;
 pub mod device_info;
 pub mod echo;
+pub mod export_wrapped;
 pub mod generate_asymmetric_key;
+pub mod generate_wrap_key;
 pub mod get_logs;
 pub mod get_object_info;
 pub mod get_pubkey;
@@ -55,6 +57,8 @@ pub mod put_otp_aead_key;
 pub mod put_wrap_key;
 pub mod sign_ecdsa;
 pub mod sign_eddsa;
+pub mod wrap_data;
+pub mod unwrap_data;
 
 // Import command functions from all submodules
 pub use self::attest_asymmetric::*;
@@ -64,7 +68,9 @@ pub(crate) use self::create_session::*;
 pub use self::delete_object::*;
 pub use self::device_info::*;
 pub use self::echo::*;
+pub use self::export_wrapped::*;
 pub use self::generate_asymmetric_key::*;
+pub use self::generate_wrap_key::*;
 pub use self::get_logs::*;
 pub use self::get_object_info::*;
 pub use self::get_pubkey::*;
@@ -78,6 +84,8 @@ pub use self::put_otp_aead_key::*;
 pub use self::put_wrap_key::*;
 pub use self::sign_ecdsa::*;
 pub use self::sign_eddsa::*;
+pub use self::wrap_data::*;
+pub use self::unwrap_data::*;
 
 /// Structured commands (i.e. requests) which are encrypted and then sent to
 /// the HSM. Every command has a corresponding `ResponseType`.
