@@ -68,11 +68,11 @@ NOTE: If there's a command on this list which isn't presently supported,
 - [x] [Device Info]: Get information about the HSM like software versions and algorithms
 - [x] [Delete Object]: Delete an object of the given ID and type
 - [x] [Echo]: Echo a message sent to the HSM
-- [ ] [Export Wrapped]: Export an encrypted (i.e keywrapped) private key from the HSM
+- [x] [Export Wrapped]: Export an encrypted (i.e keywrapped) private key from the HSM
 - [x] [Generate Asymmetric Key]: Randomly generate a new asymmetric key within the HSM
 - [ ] [Generate HMAC Key]: Randomly generate an HMAC key in the HSM
 - [ ] [Generate OTP AEAD Key]: Randomly generate an AES key for Yubico OTP authentication
-- [ ] [Generate Wrap Key]: Randomly generate an AES key for exporting/importing other encrypted keys
+- [x] [Generate Wrap Key]: Randomly generate an AES key for exporting/importing other encrypted keys
 - [x] [Get Logs]: Obtain the audit log for the HSM
 - [x] [Get Object Info]: Get information about an object
 - [ ] [Get Opaque]: Get an opaque bytestring from the HSM
@@ -101,9 +101,9 @@ NOTE: If there's a command on this list which isn't presently supported,
 - [ ] [Sign Data PKCS1]: Compute an RSASSA-PKCS#1v1.5 signature using an HSM-backed private key
 - [ ] [Sign Data PSS]: Compute an RSASSA-PSS signature using an HSM-backed private key
 - [ ] [Storage Status]: Fetch information about currently free storage
-- [ ] [Unwrap Data]: Decrypt data encrypted using a wrap key
+- [x] [Unwrap Data]: Decrypt data encrypted using a wrap key
 - [ ] [Verify HMAC]: Verify that an HMAC tag for given data is valid
-- [ ] [Wrap Data]: Encrypt data using a wrap key
+- [x] [Wrap Data]: Encrypt data using a wrap key
 
 [Attest Asymmetric]: https://docs.rs/yubihsm/latest/yubihsm/commands/attest_asymmetric/fn.attest_asymmetric.html
 [Authenticate Session]: https://developers.yubico.com/YubiHSM2/Commands/Authenticate_Session.html
