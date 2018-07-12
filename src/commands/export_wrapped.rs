@@ -2,41 +2,29 @@
 //!
 //! <https://developers.yubico.com/YubiHSM2/Commands/Export_Wrapped.html>
 
-/*
-    /// Get an object in encrypted form (wrapped)
-    pub fn export_wrapped(
-        &mut self,
-        wrapkey_id: ObjectId,
-        object_type: ObjectType,
-        object_id: ObjectId,
-    ) -> Result<ExportWrappedResponse, SessionError>
-    {
-        self.send_encrypted_command(ExportWrappedCommand {
-            wrapkey_id,
-            object_type,
-            object_id,
-        })
-    }
+use super::{Command, Response};
+use {
+    CommandType, Connector, ObjectId, ObjectType,
+    Session, SessionError,
+};
 
-
-
-/// Response from `CommandType::ExportWrapped`
-#[derive(Serialize, Deserialize, Debug)]
-pub struct ExportWrappedResponse {
-    /// Nonce with wrapped data
-    pub data: Vec<u8>,
+/// Get an object in encrypted form (wrapped)
+pub fn export_wrapped<C: Connector>(
+    session: &mut Session<C>,
+    wrapkey_id: ObjectId,
+    object_type: ObjectType,
+    object_id: ObjectId,
+) -> Result<ExportWrappedResponse, SessionError> {
+    session.send_encrypted_command(ExportWrappedCommand {
+        wrapkey_id,
+        object_type,
+        object_id,
+    })
 }
 
-impl Response for ExportWrappedResponse {
-    const COMMAND_TYPE: CommandType = CommandType::ExportWrapped;
-}
-
-
-/// Request parameters for `CommandType::ExportWrapped`
-/// 
-/// <https://developers.yubico.com/YubiHSM2/Commands/Export_Wrapped.html>
+/// Request parameters for `commands::export_wrapped`
 #[derive(Serialize, Deserialize, Debug)]
-pub struct ExportWrappedCommand {
+pub(crate) struct ExportWrappedCommand {
     /// ID of wrapkey
     pub wrapkey_id: ObjectId,
     /// Type of object to wrap
@@ -49,4 +37,15 @@ impl Command for ExportWrappedCommand {
     type ResponseType = ExportWrappedResponse;
 }
 
-*/
+/// Response from `commands::export_wrapped`
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ExportWrappedResponse {
+    /// Nonce with wrapped data
+    pub data: Vec<u8>,
+}
+
+impl Response for ExportWrappedResponse {
+    const COMMAND_TYPE: CommandType = CommandType::ExportWrapped;
+}
+
+// Further traits for ExportWrappedResponse

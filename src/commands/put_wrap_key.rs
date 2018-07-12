@@ -61,33 +61,4 @@ impl Response for PutWrapKeyResponse {
     const COMMAND_TYPE: CommandType = CommandType::PutWrapKey;
 }
 
-
-
-/*
-    /// Import a wrapkey.
-    pub fn put_wrap_key<T>(
-        &mut self,
-        key_id : ObjectId,
-        label: ObjectLabel,
-        domains: Domains,
-        capabilities: Capabilities,
-        algorithm: Algorithm,
-        dc: Capabilities,
-        wrapkey: T,
-    ) -> Result<PutWrapKeyResponse, SessionError>
-    where T: Into<Vec<u8>>,
-    {
-        self.send_encrypted_command(PutWrapKeyCommand {
-            key_id,
-            label,
-            domains,
-            capabilities,
-            algorithm,
-            dc,
-            wrapkey: wrapkey.into(),
-        })
-    }
-
-
-
-*/
+// DC not added
